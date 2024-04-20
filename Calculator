@@ -1,0 +1,54 @@
+import tkinter as tk
+from tkinter import Button
+ 
+def click(symbol):
+    current = screen.get()
+    screen.delete(0, tk.END)
+    screen.insert(0, current + str(symbol))
+
+def clear_press():
+    screen.delete(0, tk.END)
+
+def calculate_press():
+    try:
+        result = eval(screen.get())
+        screen.delete(0, tk.END)
+        screen.insert(0, str(result))
+    except Exception as e:
+        screen.delete(0, tk.END)
+        screen.insert(0, "Error")
+
+def delete_press():
+    current = screen.get()
+    screen.delete(0, tk.END)
+    screen.insert(0, current[:-1])
+
+root = tk.Tk()
+root.geometry("395x345")
+root.title("Calculator")
+root.wm_iconbitmap("calulator_image.jpg")
+
+screen = tk.Entry(root, width=20, font= "lucida 15 bold", borderwidth=7, bg="black", fg="white", relief= "raised")
+screen.grid(row=0, column=0, columnspan=4, pady=10, padx=30)
+
+btn1 = Button(root, font="lucida 20 bold", text="1", command=lambda:click(1), bg="powder blue", fg="black",width=5, height=1).grid(row=2, column=1)
+btn2 = Button(root, font="lucida 20 bold", text="2", command=lambda:click(2), bg="powder blue", fg="black",width=5, height=1).grid(row=2, column=2)
+btn3 = Button(root, font="lucida 20 bold", text="3", command=lambda:click(3), bg="powder blue", fg="black",width=5, height=1).grid(row=2, column=3)
+btn4 = Button(root, font="lucida 20 bold", text="4", command=lambda:click(4), bg="powder blue", fg="black",width=5, height=1).grid(row=3, column=1)
+btn5 = Button(root, font="lucida 20 bold", text="5", command=lambda:click(5), bg="powder blue", fg="black",width=5, height=1).grid(row=3, column=2)
+btn6 = Button(root, font="lucida 20 bold", text="6", command=lambda:click(6), bg="powder blue", fg="black",width=5, height=1).grid(row=3, column=3)
+btn7 = Button(root, font="lucida 20 bold", text="7", command=lambda:click(7), bg="powder blue", fg="black",width=5, height=1).grid(row=4, column=1)
+btn8 = Button(root, font="lucida 20 bold", text="8", command=lambda:click(8), bg="powder blue", fg="black",width=5, height=1).grid(row=4, column=2)
+btn9 = Button(root, font="lucida 20 bold", text="9", command=lambda:click(9), bg="powder blue", fg="black",width=5, height=1).grid(row=4, column=3)
+btn10 = Button(root, font="lucida 20 bold", text="0", command=lambda:click(0), bg="powder blue", fg="black",width=5, height=1).grid(row=5, column=1)
+btn11 = Button(root, font="lucida 20 bold", text="+", command=lambda:click("+"), bg="teal", fg="black",width=5, height=1).grid(row=2, column=4)
+btn12 = Button(root, font="lucida 20 bold", text="-", command=lambda:click("-"), bg="teal", fg="black",width=5, height=1).grid(row=3, column=4)
+btn13 = Button(root, font="lucida 20 bold", text="*", command=lambda:click("*"), bg="teal", fg="black",width=5, height=1).grid(row=4, column=4)
+btn14 = Button(root, font="lucida 20 bold", text="/", command=lambda:click("/"), bg="teal", fg="black",width=5, height=1).grid(row=5, column=4)
+btn15 = Button(root, font="lucida 20 bold", text="=", command=calculate_press, bg="teal", fg="black",width=11, height=1).grid(row=6, column=3, columnspan=2)
+btn16= Button(root, font="lucida 20 bold", text="C", command=clear_press, bg="teal", fg="black",width=5, height=1).grid(row=6, column=1)
+btn17 = Button(root, font="lucida 20 bold", text="De", command=delete_press, bg="teal", fg="black",width=5, height=1).grid(row=6, column=2)
+btn18 = Button(root, font="lucida 20 bold", text=".", command=lambda:click("."), bg="powder blue", fg="black",width=5, height=1).grid(row=5, column=3)
+btn19 = Button(root, font="lucida 20 bold", text="00", command=lambda:click(00), bg="powder blue", fg="black",width=5, height=1).grid(row=5, column=2)
+
+root.mainloop()
