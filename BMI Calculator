@@ -1,0 +1,43 @@
+from tkinter import *
+import tkinter as tk
+
+root = tk.Tk()
+root.title("BMI Calculator")
+root.geometry("470x300")
+root.config(bg="powder blue")
+
+def bmi_calculate():
+    try: 
+      height = float(height_entry.get())
+      weight = float(weight_entry.get())
+      height = height / 100
+      bmi = weight / (height ** 2)
+
+      if bmi < 18.5 : result.config(text=f"Your bmi is {bmi:.2f} and you are under Underweight category.", fg="ligt blue")
+      elif 18.5 <= bmi < 25 : result.config(text=f"Your bmi is {bmi:.2f} and you are under Normal category.", fg="green")
+      elif 25 <= bmi < 30 : result.config(text=f"Your bmi is {bmi:.2f} and you are under Overweight category.", fg="orange")
+      else: result.config(text=f"Your bmi is {bmi:.2f} and you are under Obese category.", fg="red")
+    
+    except ValueError: result.config(text=f"Please enter valid numbers.", fg="red") 
+       
+title_label = tk.Label(root, text="BMI Calculator", font=("Arial", 18, "bold"), fg="blue", bg="powder blue")
+title_label.grid(row=0, column=0, columnspan=2, pady=10, sticky="e")
+
+height_label = tk.Label(root, text="Height (in cm) : " ,fg="blue", font=("Arial", 12), bg="powder blue")
+height_label.grid(row=1, column=0, padx=10, pady=10, sticky="e")
+height_entry = tk.Entry(root, width=10)
+height_entry.grid(row=1, column=1, padx=10, pady=10)
+
+weight_label = tk.Label(root, text="Weight (in kg) : " ,fg="blue" ,font=("Arial", 12), bg="powder blue")
+weight_label.grid(row=2, column=0, padx=10, pady=10, sticky="e")
+weight_entry = tk.Entry(root, width=10)
+weight_entry.grid(row=2, column=1, padx=10, pady=10)
+
+
+calculate_button = tk.Button(root, text="Calculate BMI", command=bmi_calculate, bg="#4CAF50", fg="white", font=("Arial", 12))
+calculate_button.grid(row=3, column=0,  pady=20)
+
+result = tk.Label(root, text="", font=("Arial", 12, "bold"), bg="#f0f0f0")
+result.grid(row=4, column=0, columnspan=2, pady=10, padx=30)
+
+root.mainloop()
