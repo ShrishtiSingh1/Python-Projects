@@ -1,0 +1,87 @@
+from tkinter import *
+import tkinter as tk
+from tkinter import ttk    # ttk is a module in tkinter that provides themed widgets  like combobox, button, label, etc. It is more modern , adaptable, better than tk 
+from tkinter import messagebox
+from googletrans import Translator, LANGUAGES
+
+# function to translate languages
+def translate():
+    text = source_text.get("1.0", tk.END).strip()
+    src_lang = source_box.get()
+    dest_lang = destination_box.get()
+    
+    if text:
+        try:
+            translator = Translator()
+            translated = translator.translate(text, src=src_lang, dest=dest_lang)
+            destination_text.delete("1.0", tk.END)
+            destination_text.insert(tk.END, translated.text)
+        except Exception as e:
+            messagebox.showerror("Translation Error", f"An error occurred: {str(e)}")
+    else:
+        messagebox.showwarning("Input Error", "Please enter text to translate.")
+
+# "1.0" - In Tkinter, indices for the Text widget are represented as "line.column" where 1 refers to the first line of the text & 0 refers to the 0th (first) character in that line (which is actually the position before the first character). So, "1.0" means "from the beginning of the text" starting index in the Text widget.
+
+# strip() removes leading and trailing whitespace (including spaces, tabs, and newlines).
+
+# delete() method is used to remove text from a widget, takes start & end as parameter. Like, "1.0" as start means the first character of the Text widget (first row, first column) & "tk.END" as end means this refers to the end of the text, so everything from the start index "1.0" to the end will be deleted.
+
+# insert() method is used to insert text into a specified position, it takes index(position) and text as parameters. Like, "1.0" as index and "Hello World" as text it means insert the string "Hello World" at the very beginning of the text (position "1.0", which is line 1, column 0).
+
+# creating the main window
+root = tk.Tk()
+root.title("Language Translator")
+root.geometry("600x700")
+root.config(bg="light blue")
+
+# using .place() instead of .pack() because .pack() was initially used for positioning widgets, but .pack() is a geometry manager that arranges widgets in a block layout, either vertically or horizontally, without giving much control over the exact position of each widget. This is why you couldn't specify x and y coordinates while using .pack(). .pack() doesn't allow you to position widgets at specific coordinates (e.g., x=100, y=50). It simply packs them relative to each other (top, bottom, left, or right). If you need to control the exact location of each widget in your application, .place() or .grid() are better options than .pack(). Since you want to place widgets at specific x and y coordinates, the .place() geometry manager is more appropriate because it allows you to place widgets at exact coordinates like x=50, y=150, .place() was necessary.
+
+# main heading of the page
+title_label = tk.Label(root, text="Language Translator", font=("Arial", 27, "bold"), fg="purple", bg="light pink", height=1, width=18)
+#title_label.pack()
+title_label.place(x = 100, y = 10)
+
+# soucre heading 
+source_heading = tk.Label(root, text="Enter your text", font=("Arial", 14, "bold"), fg="black", height=1, width=12)
+#source_heading.pack()
+source_heading.place(x = 46, y = 100)
+
+# source text box for user to enter 
+source_text = tk.Text(root, font=("Arial", 14), relief= GROOVE, bd = 3, height=7, width=40)
+#source_text.pack()
+source_text.place(x = 50, y = 143)
+
+# getting all languages from googletrans & converting it to a list format
+languages_list = list(LANGUAGES.values())
+
+# dropdown menu box for source languages - translate from source language
+source_box = ttk.Combobox(root, value = languages_list, font = ("Arial", 12), height = 7, width = 13)
+#source_box.pack()
+source_box.place(x = 50, y = 348)
+source_box.set("English")
+
+# using command because the command attribute is used to associate a function or method with a widget that can trigger an action, such as a button. This allows you to define what happens when a user interacts with a widget, such as clicking a button. The command attribute is most commonly used with interactive widgets like Button, Checkbutton, Radiobutton, Menu, etc. It specifies the function that should be executed when the widget is clicked or activated.
+
+# translate button
+translate_button = tk.Button(root, text = "Translate", fg = "white", bg = "#FF4500", font = ("Arial", 12, "bold"), height = 1, width = 14, command = translate)
+#translate_button.pack()
+translate_button.place(x = 200, y = 344)
+
+# dropdown menu box for destination languages - translate into destination language
+destination_box = ttk.Combobox(root, value = languages_list, font = ("Arial", 12), height = 7, width = 13)
+#destination_box.pack()
+destination_box.place(x = 360, y = 348)
+destination_box.set("Hindi")
+
+# destination heading
+destination_heading = tk.Label(root, text="Translated text", font=("Arial", 14, "bold"), fg="black", height=1, width=12)
+#destination_heading.pack()
+destination_heading.place(x = 50, y = 413)
+
+# destination text box - contains translated text from source language to destination language
+destination_text = tk.Text(root, font=("Arial", 14), relief= GROOVE, bd = 3, height=7, width=40)
+#destination_text.pack()
+destination_text.place(x = 50, y = 455)
+
+root.mainloop()
