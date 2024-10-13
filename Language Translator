@@ -2,7 +2,7 @@ from tkinter import *
 import tkinter as tk
 from tkinter import ttk    # ttk is a module in tkinter that provides themed widgets  like combobox, button, label, etc. It is more modern , adaptable, better than tk 
 from tkinter import messagebox
-from googletrans import Translator, LANGUAGES
+from googletrans import Translator, LANGUAGES    #Python googletrans is a module to translate text. It uses the Google Translate Ajax API to detect langauges and translate text.
 
 # function to translate languages
 def translate():
