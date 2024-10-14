@@ -1,0 +1,23 @@
+def chatbot(user_input):
+    chats = {
+        ("hello", "hii", "hey", "yoo bro", "yoo"): "Hii there! How can I help you?",
+        "i have a question": "Yes! Please go on",
+        "how are you": "I'm good, what about you",
+        "bye": "Goodbye! Have a great day ahead", 
+        "tell me about your family": "I only have my mommy with me and she's a python developer",
+        "i'll call you jarvis from now onwards, is that okay ?": "Yes, you can call me :)",
+        "jarvis open browser": "Okay, opening"
+    }
+
+    user_input = user_input.lower()
+
+    for key in chats:
+        if isinstance(key, tuple) and user_input in key:
+            return chats[key]
+        elif user_input == key:
+            return chats[key]
+    
+    return "I'm sorry, I am unable to understand it."
+
+response = chatbot(input("You: "))
+print("Bot:", response)
